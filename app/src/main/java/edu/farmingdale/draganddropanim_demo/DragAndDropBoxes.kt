@@ -39,7 +39,9 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -91,7 +93,8 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                         Icon(
                             imageVector = androidx.compose.material.icons.Icons.Default.ArrowForward
                             , contentDescription = null
-                            , modifier = Modifier.fillMaxSize(0.5f).dragAndDropSource {
+                            , modifier = Modifier.fillMaxSize()
+                                .dragAndDropSource {
                                 detectTapGestures(
                                     onLongPress = { offset ->
                                         startTransfer(
@@ -115,12 +118,12 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(0.8f)
+                .weight(0.3f)
                 .background(Color.Red)
 
         ) {
-                //drawCircle(Color.Green, radius = 50f, center = Offset(100f, 100f))
-                drawRect(Color.Green, topLeft = Offset(100f, 100f), size = size / 5f)
+
+                drawRect(Color.Green, topLeft = Offset(100f, 100f), size = Size(70f,70f))
        }
     }
 }
