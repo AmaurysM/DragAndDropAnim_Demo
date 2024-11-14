@@ -35,6 +35,9 @@ import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.draganddrop.DragAndDropTransferData
 import androidx.compose.ui.draganddrop.mimeTypes
 import androidx.compose.foundation.Canvas
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Icon
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -85,28 +88,23 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                         enter = scaleIn() + fadeIn(),
                         exit = scaleOut() + fadeOut()
                     ) {
-                        Text(
-                            text = "Right",
-                            fontSize = 40.sp,
-                            color = Color.Red,
-                            fontWeight = FontWeight.Bold,
-
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .dragAndDropSource {
-                                    detectTapGestures(
-                                        onLongPress = { offset ->
-                                            startTransfer(
-                                                transferData = DragAndDropTransferData(
-                                                    clipData = ClipData.newPlainText(
-                                                        "text",
-                                                        ""
-                                                    )
+                        Icon(
+                            imageVector = androidx.compose.material.icons.Icons.Default.ArrowForward
+                            , contentDescription = null
+                            , modifier = Modifier.fillMaxSize(0.5f).dragAndDropSource {
+                                detectTapGestures(
+                                    onLongPress = { offset ->
+                                        startTransfer(
+                                            transferData = DragAndDropTransferData(
+                                                clipData = ClipData.newPlainText(
+                                                    "text",
+                                                    ""
                                                 )
                                             )
-                                        }
-                                    )
-                                }
+                                        )
+                                    }
+                                )
+                            }
                         )
                     }
                 }
