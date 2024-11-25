@@ -131,7 +131,15 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
         )
 
         val moveHorizontallyAnimation by animateFloatAsState(
-            targetValue = if (animateBox) 100f else 0f,
+            targetValue = if (dragBoxIndex == 0) 100f else 0f,
+            animationSpec = tween(
+                durationMillis = 1000
+            ),
+            label = ""
+        )
+
+        val moveVerticallyAnimation by animateFloatAsState(
+            targetValue = if (dragBoxIndex == 1) 100f else 0f,
             animationSpec = tween(
                 durationMillis = 1000
             ),
@@ -146,18 +154,15 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                 .offset(x = 100.dp, y = 100.dp)
         ) {
 
+
             Box(
-                modifier = Modifier.offset(x = moveHorizontallyAnimation.dp, y = -moveHorizontallyAnimation.dp)
-            ){
-                Box(
-                    modifier = Modifier
-                        .rotate(rotateAnimation)
-                        .size(70.dp)
-                        .background(Color.Blue)
+                modifier = Modifier
+                    .offset(x = moveHorizontallyAnimation.dp, y = -moveVerticallyAnimation.dp)
+                    .rotate(rotateAnimation)
+                    .size(70.dp)
+                    .background(Color.Blue)
+            )
 
-
-                )
-            }
             Row{
                 Button(onClick = {
                     animateBox = true
