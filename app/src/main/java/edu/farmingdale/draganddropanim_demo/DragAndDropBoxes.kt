@@ -122,6 +122,14 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
             label = ""
         )
 
+        val moveHorizontallyAnimation by animateFloatAsState(
+            targetValue = if (dragBoxIndex == 0) 0f else 100f,
+            animationSpec = tween(
+                durationMillis = 1000
+            ),
+            label = ""
+        )
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -129,12 +137,20 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                 .background(Color.Red)
                 .offset(x = 100.dp, y = 100.dp)
         ) {
+
             Box(
-                modifier = Modifier
-                    .rotate(rotateAnimation)
-                    .size(70.dp)
-                    .background(Color.Blue)
-            )
+                modifier = Modifier.offset(x = moveHorizontallyAnimation.dp, y = -moveHorizontallyAnimation.dp)
+            ){
+                Box(
+                    modifier = Modifier
+                        .rotate(rotateAnimation)
+                        .size(70.dp)
+                        .background(Color.Blue)
+
+
+                )
+            }
+
         }/**/
         /*Canvas(
         modifier = Modifier
