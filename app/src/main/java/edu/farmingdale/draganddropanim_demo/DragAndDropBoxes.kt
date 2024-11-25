@@ -28,10 +28,13 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -51,6 +54,10 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
     val boxCount = 4
     var dragBoxIndex by remember {
         mutableIntStateOf(0)
+    }
+
+    var animateBox by remember {
+        mutableStateOf(false)
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -78,6 +85,7 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                                 object : DragAndDropTarget {
                                     override fun onDrop(event: DragAndDropEvent): Boolean {
                                         dragBoxIndex = index
+                                        animateBox = true
                                         return true
                                     }
                                 }
@@ -115,7 +123,7 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
             }
         }
         val rotateAnimation by animateFloatAsState(
-            targetValue = if (dragBoxIndex == 0) 0f else 360f,
+            targetValue = if (animateBox) 360f else 0f,
             animationSpec = tween(
                 durationMillis = 1000
             ),
@@ -123,7 +131,7 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
         )
 
         val moveHorizontallyAnimation by animateFloatAsState(
-            targetValue = if (dragBoxIndex == 0) 0f else 100f,
+            targetValue = if (animateBox) 100f else 0f,
             animationSpec = tween(
                 durationMillis = 1000
             ),
@@ -150,6 +158,20 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
 
                 )
             }
+            Row{
+                Button(onClick = {
+                    animateBox = true
+                }) {
+                    Text(text = "Animate")
+                }
+
+                Button(onClick = {
+                    animateBox = false
+                }) {
+                    Text(text = "Reset")
+                }
+            }
+
 
         }/**/
         /*Canvas(
